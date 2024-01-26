@@ -1,0 +1,38 @@
+/*    FOR NAVBAR   */
+.navbar {
+  display: flex;
+  gap: 29px;
+  width: 1300px;
+  margin: auto;
+  border: 2px solid tomato;
+  align-items: center;
+  height: 72px;
+  background-color: lightgreen;
+}
+
+.ulForHeader {
+  display: flex;
+  gap: 10px;
+}
+.ulForHeader li {
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  width: 100px;
+  border-radius: 5px;
+  border: 1px solid rgb(98, 98, 182);
+  font-size: 20px;
+  background-color: #37378d;
+  list-style: none;
+}
+.navLink {
+  text-decoration: none;
+  color: white;
+}
+.navLink:hover {
+  color: red;
+}
+.ulForHeader li:hover {
+  background-color: rgb(101, 246, 246);
+  cursor: pointer;
+}
