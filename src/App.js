@@ -4,6 +4,9 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LogIn from './screen/LogIn';
 import MyOrders from './screen/MyOrders';
+import '../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css';
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle'
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function App() {
   return (

@@ -13,7 +13,7 @@ export default function ActionAreaCard(props) {
         <CardMedia
           component="img"
           height="100"
-          image={PizzaPhoto}
+          image= {PizzaPhoto}
           alt={props.alt}
         />
         <CardContent>
