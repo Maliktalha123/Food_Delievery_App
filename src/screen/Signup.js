@@ -1,33 +1,30 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-function LogIn() {
+import { Link } from "react-router-dom";
+const Signup = () => {
   const [credentials, setCredentials] = useState({
+    name: "",
     email: "",
     password: "",
+    location: "",
   });
-  let navigate = useNavigate();
   const submitHandle = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:7000/api/loginuser", {
+    const response = await fetch("http://localhost:7000/api/createuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name: credentials.name,
         email: credentials.email,
         password: credentials.password,
+        location: credentials.location,
       }),
     });
-    const json = await response.json();
-    console.log(json);
-    if (!json.success) {
-      alert("Fill all the Boxes Correctly...");
-    }
-    if (json.success) {
-      localStorage.setItem("authToken",json.authToken)
-      navigate("/");
-console.log(localStorage.getItem("authToken"))
+    const json = await response.json()
+    console.log(json)
+    if(!json.success){
+      alert("Fill all the Boxes Correctly......")
     }
   };
   const onChange = (event) => {
@@ -38,6 +35,18 @@ console.log(localStorage.getItem("authToken"))
     <>
       <div className="container">
         <form onSubmit={submitHandle}>
+          <div className="mb-3">
+            <label htmlFor="exampleInName" className="form-label">
+              Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              name="name"
+              onChange={onChange}
+              value={credentials.name}
+            />
+          </div>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
               Email address
@@ -68,16 +77,30 @@ console.log(localStorage.getItem("authToken"))
               value={credentials.password}
             />
           </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputLocation1" className="form-label">
+              Location
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputLocation1"
+              name="location"
+              onChange={onChange}
+              value={credentials.location}
+            />
+          </div>
+
           <button type="submit" className=" m-3 btn btn-success">
             Submit
           </button>
-          <Link to="/createuser" className="btn m-3 btn-danger">
-            Create A New Account
+          <Link to="/login" className="btn m-3 btn-danger">
+            Already a USer
           </Link>
         </form>
       </div>
     </>
   );
-}
+};
 
-export default LogIn;
+export default Signup;

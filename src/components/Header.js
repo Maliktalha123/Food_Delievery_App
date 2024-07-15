@@ -12,6 +12,9 @@ function Header() {
         <li>
           <NavLink to="/login" className='navLink'>LOG IN</NavLink>
         </li>
+        <li>
+          <NavLink to="/createuser" className='navLink'>Sign Up</NavLink>
+        </li>
       </ul>
     </div>
   );

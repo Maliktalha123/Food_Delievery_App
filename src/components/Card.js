@@ -12,7 +12,7 @@ export default function ActionAreaCard(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="100"
+          height="150"
           image= {PizzaPhoto}
           alt={props.alt}
         />
@@ -20,11 +20,9 @@ export default function ActionAreaCard(props) {
           <Typography gutterBottom variant="h5" component="div">
             {props.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {props.discription}
-          </Typography>
+        
           <div style={{ display: "flex", gap: "3px" }}>
-            <select style={{"cursor":"pointer"}}>
+            <select style={{"cursor":"pointer","width":"40px","height":"50px" }} className = "w-40 h-20">
               {Array.from(Array(6), (e, i) => {
                 return (
                   <option key={i + 1} value={i + 1}>
@@ -33,13 +31,13 @@ export default function ActionAreaCard(props) {
                 );
               })}
             </select>
-            <select style={{"cursor":"pointer"}}>
+            <select style={{"cursor":"pointer","width":"100px","height":"50px" }}>
               <option value="small">Small</option>
               <option value="meduim">Medium</option>
               <option value="large">Large </option>
             </select>
-            <h3>Total Price</h3>
           </div>
+            <h3>Total Price</h3>
         </CardContent>
       </CardActionArea>
     </Card>
