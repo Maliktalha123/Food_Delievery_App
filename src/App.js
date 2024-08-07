@@ -8,10 +8,12 @@ import MyOrders from './screen/MyOrders';
 import '../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle'
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+import { CartProvider } from './components/ContextReducer.js';
 
 function App() {
   return (
     <div className="App">
+      <CartProvider >
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home/> }/>
@@ -21,8 +23,8 @@ function App() {
 
       </Routes>
       </BrowserRouter>
+      </CartProvider>
 
-{/* <Home /> */}
     </div>
   );
 }
