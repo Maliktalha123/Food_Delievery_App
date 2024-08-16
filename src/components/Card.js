@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { UseDispatchCart, UseCart } from "./ContextReducer";
-import { useEffect,useRef,useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function ActionAreaCard(props) {
   const dispatch = UseDispatchCart();
@@ -14,7 +14,36 @@ function ActionAreaCard(props) {
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState("");
   let data = UseCart();
-  const handleSubmit = async () => {
+  const addToCart = async () => {
+    let food = [];
+    for (const item of data) {
+      if (item.id === props.foodItem._id) {
+        food = item;
+        break;
+      }
+    }
+    if (food != []) {
+      if (food.size === size) {
+        await dispatch({
+          type: "Update",
+          id: props.foodItem._id,
+          price: finalPrice,
+          qty: qty,
+        });
+        return;
+      } else if (food.size != size) {
+        await dispatch({
+          type: "Add",
+          id: props.foodItem._id,
+          name: props.foodItem.name,
+          price: finalPrice,
+          qty: qty,
+          size: size,
+        });
+        return;
+      }
+      return;
+    }
     await dispatch({
       type: "Add",
       id: props.foodItem._id,
@@ -23,13 +52,12 @@ function ActionAreaCard(props) {
       qty: qty,
       size: size,
     });
-    console.log("Data => ", data);
   };
-  
-  const priceRef = useRef()
-useEffect(()=>{
-setSize(priceRef.current.value)
-},[])
+
+  const priceRef = useRef();
+  useEffect(() => {
+    setSize(priceRef.current.value);
+  }, []);
   let finalPrice = qty * parseInt(options[size]);
   return (
     <Card sx={{ maxWidth: 250 }} style={{ marginTop: "7px" }}>
@@ -74,8 +102,8 @@ setSize(priceRef.current.value)
               })}
             </select>
           </div>
-<div className="d-inline h-100 fs-5">${finalPrice}/-</div>
-          <div className="btn text-white bg-danger m-2" onClick={handleSubmit}>
+          <div className="d-inline h-100 fs-5">${finalPrice}/-</div>
+          <div className="btn text-white bg-danger m-2" onClick={addToCart}>
             Add to Cart
           </div>
         </CardContent>

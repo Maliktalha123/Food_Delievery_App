@@ -1,12 +1,19 @@
 import "./components.css";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import { Badge } from "react-bootstrap";
+import { useState } from "react";
+import Modal from "../Modal";
+import Cart from "../screen/Cart";
+import { UseCart } from "./ContextReducer";
 function Header() {
-  const navigate = useNavigate()
-const handleLogout = ()=>{
-  localStorage.removeItem("authToken")
-  navigate("/login")
-}
+  let data = UseCart()
+  const [cartView, setCartView] = useState(false);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/login");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -32,32 +39,54 @@ const handleLogout = ()=>{
                   Home
                 </NavLink>
               </li>
-              {(localStorage.getItem("authToken"))?
-                            <li className="nav-item">
-                            <NavLink to="/" className="nav-link active" aria-current="page">
-                              My Orders
-                            </NavLink>
-                          </li>:""
-              
-              }
+              {localStorage.getItem("authToken") ? (
+                <li className="nav-item">
+                  <NavLink
+                    to="/"
+                    className="nav-link active"
+                    aria-current="page"
+                  >
+                    My Orders
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
-            {
-              (!localStorage.getItem("authToken"))?
-            
-            <div className="d-flex ">
-              <NavLink to="/login" className="btn bg-white text-success mx-1">
-                Login
-              </NavLink>
-              <NavLink
-                to="/createuser"
-                className="btn bg-white text-success mx-1"
-              >
-                Create User
-              </NavLink>
-            </div>:<div>
-              <div className="btn bg-white text-success mx-2">My Cart</div>
-              <div className="btn bg-white text-danger mx-2" onClick={handleLogout}>LogouT</div>
-            </div>}
+            {!localStorage.getItem("authToken") ? (
+              <div className="d-flex ">
+                <NavLink to="/login" className="btn bg-white text-success mx-1">
+                  Login
+                </NavLink>
+                <NavLink
+                  to="/createuser"
+                  className="btn bg-white text-success mx-1"
+                >
+                  Create User
+                </NavLink>
+              </div>
+            ) : (
+              <div>
+                <div className="btn bg-white text-success mx-2" onClick={()=>setCartView(true)}>
+                  My Cart {" " + " "}
+                  <Badge pill bg="danger">
+                    {" "}
+                   {data.length}
+                  </Badge>
+                </div>
+                {cartView ? (
+                  <Modal onClose={() => setCartView(false)}>
+                    <Cart />
+                  </Modal>
+                ) : null}
+                <div
+                  className="btn bg-white text-danger mx-2"
+                  onClick={handleLogout}
+                >
+                  LogouT
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </nav>
