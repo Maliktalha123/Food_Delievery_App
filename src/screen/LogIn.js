@@ -25,9 +25,11 @@ function LogIn() {
       alert("Fill all the Boxes Correctly...");
     }
     if (json.success) {
-      localStorage.setItem("authToken",json.authToken)
+      localStorage.setItem("userEmail", credentials.email);
+
+      localStorage.setItem("authToken", json.authToken);
       navigate("/");
-console.log(localStorage.getItem("authToken"))
+      console.log(localStorage.getItem("authToken"));
     }
   };
   const onChange = (event) => {

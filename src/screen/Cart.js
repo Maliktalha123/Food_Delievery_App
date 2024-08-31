@@ -7,21 +7,21 @@ export default function Cart() {
   if (data.length === 0) {
     return (
       <div>
-        <div className="m-5 w-100 text-center text-white fs-3">The Cart is Empty!</div>
+        <div className="m-5 w-100 text-center text-white fs-3">
+          The Cart is Empty!
+        </div>
       </div>
     );
   }
-  const handleRemove = (index) =>{
+  const handleRemove = (index) => {
     console.log(index);
     dispatch({ type: "REMOVE", index: index });
   };
 
   const handleCheckOut = async () => {
     let userEmail = localStorage.getItem("userEmail");
-    console.log(data,localStorage.getItem("userEmail"),new Date())
+    console.log(data, localStorage.getItem("userEmail"), new Date());
     let response = await fetch("http://localhost:5000/api/auth/orderData", {
-      credentials: "include",
-      Origin: "http://localhost:3000/login",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,6 +32,7 @@ export default function Cart() {
         order_date: new Date().toDateString(),
       }),
     });
+
     console.log("JSON RESPONSE:::::", response.status);
     if (response.status === 200) {
       dispatch({ type: "DROP" });
@@ -56,7 +57,7 @@ export default function Cart() {
           </thead>
           <tbody>
             {data.map((food, index) => (
-              <tr className="text-white" >
+              <tr className="text-white">
                 <th scope="row">{index + 1}</th>
                 <td>{food.name}</td>
                 <td>{food.qty}</td>
